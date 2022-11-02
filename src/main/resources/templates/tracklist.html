@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head" />
+<body>
+	<div th:replace="fragments :: menu"></div>
+	
+	<div class="dropdown" style="text-align: center">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Valitse Rata
+	  </button>
+	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	    <a th:each="track: ${tracks}" class="dropdown-item" 
+	    	th:href="@{/tracks/{track}(track=${track.name.toLowerCase()})}" th:text="${track.name}"></a
+	    >
+	  </div>
+	</div>
+
+	<div class="container-fluid d-flex flex-wrap justify-content-center">
+		<div class="card m-2 pt-4" th:each="track : ${tracks}" style="max-width: 540px; margin: 20">
+		  <div class="row g-0">
+		    <div class="col-md-7">
+		      <img th:src="${track.imageUrl}" class="img-fluid rounded-start" alt="">
+		    </div>
+		    <div class="col-md-4">
+		      <div class="card-body">
+		        <h5 class="card-title" th:text="${track.name}"></h5>
+		        <h6 class="card-subtitle mb-2 text-muted" th:text="${track.location}"></h6>
+		       
+		        <div style="display: flex; height: auto">
+		        	<img src="/images/gold-cup.png" alt="gold-cup">
+		        	<p style="margin: 0;" th:text="${track.laptimes.size > 0
+		        	 	? track.laptimes.get(0).laptime + ' ' + track.laptimes.get(0).user.username
+		        	 	: '-'}"
+		        	 >
+		        </div>
+		        <div style="display: flex; height: auto">
+		        	<img src="/images/silver-cup.png" alt="silver-cup">
+		        	<p style="margin: 0;" th:text="${track.laptimes.size > 1
+		        	 	? track.laptimes.get(1).laptime + ' ' + track.laptimes.get(1).user.username
+		        	 	: '-'}"
+		        	 >
+		        </div>
+		        <div style="display: flex; height: auto">
+		        	<img src="/images/bronze-cup.png" alt="bronze-cup">
+		        	<p style="margin: 0;" th:text="${track.laptimes.size > 2 
+		        		? track.laptimes.get(2).laptime + ' ' + track.laptimes.get(2).user.username
+		        		: '-'}"
+		        	>
+		        </div><br />
+		        <a th:href="@{/tracks/{track}(track=${track.name.toLowerCase()})}"
+		        	 class="btn btn-secondary btn-sm">Näytä lisää</a
+		        >
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head" />
+<body>
+	<div th:replace="fragments :: menu"></div>
+	<div>
+		<p th:each="car : ${cars}" th:text="${car}"></p>
+	</div>
+</body>
+</html>
