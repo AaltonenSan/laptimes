@@ -1,5 +1,6 @@
 package swd02_ws.laptimes.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ public class Car {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id", nullable=false, updatable=true)
 	private Long id;
 	
 	@Size(min=2, max=2, message = "Valitse malli")
