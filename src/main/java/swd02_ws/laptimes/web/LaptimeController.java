@@ -1,6 +1,8 @@
 package swd02_ws.laptimes.web;
 
 import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,8 +90,9 @@ public class LaptimeController {
 			"|| hasAuthority('ADMIN')")
 	// Delete laptime
 	@GetMapping("/deletelaptime/{username}/{id}")
-	public String deleteLaptime(@PathVariable("username") String username, @PathVariable("id") Long id) {
+	public String deleteLaptime(@PathVariable("username") String username, @PathVariable("id") Long id, HttpServletRequest request) {
 		lrepo.deleteById(id);
-		return "redirect:/laptimes";
+		String referer = request.getHeader("Referer");
+		return "redirect:" + referer;
 	}
 }

@@ -6,6 +6,7 @@ import java.sql.Date;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,5 +79,25 @@ public class UserController {
 		model.addAttribute("track", track);
 		model.addAttribute("laptimes", lrepo.findByUserAndTrackOrderByLap(urepo.findByUsername(principal.getName()), trepo.findByName(track)));
 		return "userlaptimes";
+	}
+	
+	// ADMIN CONTROLLERS
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/allusers")
+	public String getUserlist(Model model) {
+		model.addAttribute("userlist", urepo.findAll());
+		return "userlist";
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/deleteuser/{id}")
+	public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+		if (id == 1 || id == 2) {
+			redirectAttributes.addFlashAttribute("msg", "Käyttäjää ei voida poistaa");
+			return "redirect:/allusers";
+		}
+		urepo.deleteById(id);
+		redirectAttributes.addFlashAttribute("msg", "Käyttäjä poistettu");
+		return "redirect:/allusers";
 	}
 }

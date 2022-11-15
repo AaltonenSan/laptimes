@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments :: html_head" />
 <body>
 	<div th:replace="fragments :: menu"></div>
@@ -21,6 +21,7 @@
 			<th>Renkaat</th>
 			<th>Keli</th>
 			<th>Video</th>
+			<th sec:authorize="hasAuthority('ADMIN')">
 		</tr>
 		<tr th:each="laptime, i : ${record}" th:object="${laptime}">
 			<td th:switch="${i.count}">
@@ -36,6 +37,10 @@
 			<td th:text="*{getCarTyres()}" />
 			<td th:text="*{getWeather}" />
 			<td><a th:if="*{getVideo()}" th:href="'http://' + *{getVideo()}" th:text="*{getVideo()} ? *{getVideo()} : ''" style="color:inherit"></a></td>
+			<td><form  sec:authorize="hasAuthority('ADMIN')"
+					th:action="@{/deletelaptime/{username}/{id}(username=*{getUsername()},id=*{getId()})}" method="get">
+				<input type="submit" value="Poista" class="btn btn-danger btn-sm">
+			</form></td>
 		</tr>
 	</table>
 	</div>

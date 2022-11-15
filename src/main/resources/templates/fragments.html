@@ -24,8 +24,9 @@
 		        <a class="nav-link" href="/">Etusivu</a>
 		        <a class="nav-link" href="http://miata.fi/">Foorumi</a>
 		        <a sec:authorize="isAuthenticated()" class="nav-link" href="/tracks/">Rataranking</a>
-		        <a sec:authorize="isAuthenticated()" class="nav-link" href="/laptimes">Omat kierrosajat</a>
-		        <a sec:authorize="isAuthenticated()" class="nav-link" href="/addlaptime">Lisää kierrosaika</a>
+		        <a sec:authorize="hasAuthority('USER')" class="nav-link" href="/laptimes">Omat kierrosajat</a>
+		        <a sec:authorize="hasAuthority('USER')" class="nav-link" href="/addlaptime">Lisää kierrosaika</a>
+		        <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" href="/allusers">Käyttäjälista</a>
 		      </div>
 		    </div>
 	    	<div sec:authorize="isAnonymous()" class="navbar-nav navbar-right">

@@ -61,7 +61,7 @@
 						</table>
 	                  </div>
 	                  <div th:if="${user.cars.isEmpty()}">
-	                  	<p>Sinulla ei ole vielä autoa tallennettuna</p>
+	                  	<p th:text="${msg} ? ${msg} : 'Sinulla ei ole vielä autoa tallennettuna'"></p>
 	                  </div>
 	                </div>
 	              </div>
