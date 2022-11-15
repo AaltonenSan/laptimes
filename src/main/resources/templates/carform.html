@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head" />
+<body>
+	<div th:replace="fragments :: menu"></div>
+	<section class="vh-90" style="background-color: #508bfc;">
+	  <div class="container py-5 h-100">
+	    <div class="row d-flex justify-content-center align-items-center h-100">
+	      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+	        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+	          <div class="card-body p-5 text-center">
+				<form th:object="${car}" th:action="@{/car}" action="#" method="post">
+				 	<input type="hidden" id="id" th:field="*{id}" readonly="readonly" />
+				 	<input type="hidden" id="user" th:field="*{user}" readonly="readonly" />
+				 	<h5 th:if="${message}" th:text="${message}" style="color:red"></h5>
+				 	<div class="form-outline mb-4">
+						<select class="form-select form-select-lg" id="model" th:field="*{model}">
+							<option th:value="${malli} ? ${malli} : Malli" selected hidden="true" th:text="${malli} ? ${malli} : Malli" />
+							<option th:value="NA" th:text="NA" />
+							<option th:value="NB" th:text="NB" />
+							<option th:value="NC" th:text="NC" />
+							<option th:value="ND" th:text="ND" />
+						</select>
+						<p th:if="${#fields.hasErrors('model')}" th:errors="*{model}" style="color:red">
+					</div>
+					<div class="form-outline mb-4">
+						<select class="form-select form-select-lg" id="my" th:field="*{my}">
+							<option th:value="${myear} ? ${myear} : 0" selected hidden="true" th:text="${myear} ? ${myear.toString()} : Vuosimalli" />
+							<option th:each="n : ${#numbers.sequence(1989, {year})}" th:value="${n}" th:text="${n}" />
+						</select>
+						<p th:if="${#fields.hasErrors('my')}" th:errors="*{my}" style="color:red">
+					</div>
+					<div class="form-outline mb-4">
+						<input type="text" id="engine" th:field="*{engine}"  placeholder="Moottori" class="form-control form-control-lg" />
+						<p th:if="${#fields.hasErrors('engine')}" th:errors="*{engine}" style="color:red">
+					</div>
+					<div class="form-outline mb-4">
+						<input type="text" id="tyres"
+							th:field="*{tyres}" placeholder="Renkaat"
+							class="form-control form-control-lg" />
+					</div>
+					<input type="submit" class="btn btn-primary" value="Tallenna" />
+					<a href="/profile" class="btn btn-danger">Peruuta</a>
+				</form>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</section>
+</body>
+</html>

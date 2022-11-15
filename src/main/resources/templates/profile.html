@@ -3,8 +3,73 @@
 <head th:replace="fragments :: html_head" />
 <body>
 	<div th:replace="fragments :: menu"></div>
-	<div>
-		<p th:each="car : ${cars}" th:text="${car}"></p>
-	</div>
+	
+	  <div class="container py-5">
+	    <div class="row d-flex justify-content-center align-items-center h-100">
+	      <div class="col col-lg-8 mb-4 mb-lg-0">
+	        <div class="card mb-3" style="border-radius: .5rem;">
+	          <div class="row g-0">
+	            <div class="col-md-3 text-center"
+	              style="border-top-left-radius: .5rem; 
+	              		border-bottom-left-radius: .5rem;
+	              		background-color: #508bfc">
+	              <img src="/images/userimage.png"
+	                alt="Avatar" class="img-fluid my-5" style="width: 150px;" />
+	              <h3 th:text="${user.username}"></h3>
+	            </div>
+	            <div class="col-md-9">
+	              <div class="card-body p-4">
+	                <h6 class="mb-3">Tietoja</h6>
+	                <hr class="mt-0 mb-4">
+	                <div class="row pt-1">
+	                  <div class="col-6 mb-3">
+	                    <h6>Email</h6>
+	                    <p class="text-muted" th:text="${user.email}"></p>
+	                  </div>
+	                  <div class="col-6 mb-3">
+	                    <h6>Liittynyt</h6>
+	                    <p class="text-muted" th:text="${user.joinDate}">
+	                  </div>
+	                </div>
+	                <div class="row pt-1 mb-1">
+	                  <div class="col-6">
+	                    <h6>Auto</h6>
+	                  </div>
+	                  <div class="col-6">
+	                  	<a th:if="${user.cars.isEmpty()}" href="/car" class="btn btn-primary btn-sm ps-3 pe-3">Lisää</a>
+	                  </div>
+	                </div>
+	                <hr class="mt-0 mb-4">
+	                <div class="row pt-1">
+	                  <div th:if="${!user.cars.isEmpty()}" class="col-12 mb-3">
+						<table class="table table-borderless table-responsive" >
+							<tr class="table-primary">
+								<th>Malli</th><th>Vuosimalli</th><th>Moottori</th><th>Renkaat</th><th /><th />
+							</tr>
+							<tr th:each="car : ${user.cars}">
+								<td th:text="${car.model}" />
+								<td th:text="${car.my}" />
+								<td th:text="${car.engine}" />
+								<td th:text="${car.tyres}" />
+								<td><form th:action="@{/deletecar/{username}/{id}(username=${car.user.username},id=${car.id})}" method="get">
+									<input type="submit" value="Poista" class="btn btn-danger btn-sm">
+								</form></td>
+								<td><form th:action="@{/editcar/{username}/{id}(username=${car.user.username},id=${car.id})}" method="get">
+									<input type="submit" value="Muokkaa" class="btn btn-secondary btn-sm">
+								</form></td>
+							</tr>
+						</table>
+	                  </div>
+	                  <div th:if="${user.cars.isEmpty()}">
+	                  	<p>Sinulla ei ole vielä autoa tallennettuna</p>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
 </body>
 </html>

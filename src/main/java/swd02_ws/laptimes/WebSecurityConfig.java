@@ -24,13 +24,14 @@ public class WebSecurityConfig {
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests()
-				.antMatchers("/h2-console/**").permitAll()
-				.antMatchers("/register/").permitAll()
-				.antMatchers("/").permitAll()
-				.antMatchers("/tracks/").permitAll()
-				.antMatchers("/css/**").permitAll()
-				.antMatchers("/images/**").permitAll()
-				.antMatchers("/js/**").permitAll()
+				.antMatchers("/",
+						"/static/**",
+						"/h2-console/**",
+						"/register",
+						"/tracks/",
+						"/css/**",
+						"/images/**",
+						"/js/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.csrf().ignoringAntMatchers("/h2-console/**")
@@ -39,6 +40,7 @@ public class WebSecurityConfig {
 			.and()
 			.formLogin()
 				.loginPage("/login/")
+				.defaultSuccessUrl("/", true)
 				.permitAll()
 				.and()
 			.logout()

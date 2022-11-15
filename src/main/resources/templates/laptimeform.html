@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head" />
+<body>
+	<div th:replace="fragments :: menu"></div>
+	<section class="vh-90" style="background-color: #508bfc;">
+	  <div class="container py-5 h-100">
+	    <div class="row d-flex justify-content-center align-items-center h-100">
+	      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+	        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+	          <div class="card-body p-5 text-center">
+				 <form th:object="${laptime}" th:action="@{/savelap}" action="#" method="post">
+					<select class="form-select form-select-lg" th:field="*{track}">
+						<option th:each="track: ${tracks}"
+					    		th:value="${track.id}"
+					    		th:text="${track.name}" />
+					</select><br />
+		            <div class="form-outline mb-4">
+		              <input type="text" name="lap" class="form-control form-control-lg"
+		              		 placeholder="Kierrosaika (x.xx.xx)" th:field="*{lap}" />
+		              <p th:if="${#fields.hasErrors('lap')}" th:errors="*{lap}" style="color:red">
+		            </div>
+		            <div class="form-outline mb-4">
+		              <input type="text" name="date" class="form-control form-control-lg"
+		              		 placeholder="Päivämäärä" th:field="*{date}" />
+		            </div>
+		            <div class="form-outline mb-4">
+		              <input type="text" name="weather" class="form-control form-control-lg"
+		              		 placeholder="Keli" th:field="*{weather}" />
+		            </div>
+		            <div class="form-outline mb-4">
+		              <input type="text" name="video" class="form-control form-control-lg"
+		              		 placeholder="Video" th:field="*{video}" />
+		            </div>
+					<input type="submit" class="btn btn-primary" value="Tallenna" />
+				</form>
+			</div>
+			</div>
+		</div>
+		</div>
+		</div>
+	</section>
+</body>
+</html>

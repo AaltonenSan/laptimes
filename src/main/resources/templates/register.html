@@ -4,7 +4,7 @@
 <body>
 	<div th:replace="fragments :: menu"></div>
 	
-	<section class="vh-100" style="background-color: #508bfc;">
+	<section class="vh-90" style="background-color: #508bfc;">
 	  <div class="container py-5 h-100">
 	    <div class="row d-flex justify-content-center align-items-center h-100">
 	      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -13,21 +13,23 @@
 	
 	            <h3 class="mb-5">Rekisteröidy</h3>
 	            <p th:text="${param.error} ? 'Väärä käyttäjänimi tai salasana!' : ''"></p>
-			<form th:action="@{/register/}" method="post">
+			<form th:object="${user}" th:action="@{/register}" action="#" method="post">
 	            <div class="form-outline mb-4">
-	              <input type="text" name="username" class="form-control form-control-lg" placeholder="Käyttäjänimi"/>
+	              <input type="text" id="username" th:field="*{username}" class="form-control form-control-lg" placeholder="Käyttäjänimi"/>
+	              <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red">
 	            </div>
 	            <div class="form-outline mb-4">
-	              <input type="email" name="email" class="form-control form-control-lg" placeholder="Sähköposti" />
+	             	<input type="email" id="email" th:field="*{email}" class="form-control form-control-lg" placeholder="Sähköposti" />
+	            	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red">
 	            </div>
 	            <div class="form-outline mb-4">
-	              <input type="password" name="passwordHash" class="form-control form-control-lg" placeholder="Salasana" />
+	             	<input type="password" id="passwordHash" th:field="*{passwordHash}" class="form-control form-control-lg" placeholder="Salasana" />
+	            	<p th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}" style="color:red">
 	            </div>
-	            <input type="hidden" name="role" value="USER">
+	            <input type="hidden" id="role" th:field="*{role}" th:value="USER">
 	            <button class="btn btn-primary btn-lg btn-block" type="submit">Rekisteröidy</button>
 	        </form>
 	            <hr class="my-4">
-	            
 	          </div>
 	        </div>
 	      </div>

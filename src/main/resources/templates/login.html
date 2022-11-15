@@ -4,7 +4,7 @@
 <body>
 	<div th:replace="fragments :: menu"></div>
 	
-	<section class="vh-100" style="background-color: #508bfc;">
+	<section class="vh-90" style="background-color: #508bfc;">
 	  <div class="container py-5 h-100">
 	    <div class="row d-flex justify-content-center align-items-center h-100">
 	      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -13,7 +13,7 @@
 	
 	            <h3 class="mb-5" th:text="${msg}"></h3>
 	            <h3 class="mb-5" th:text="${param.logout} ? 'Olet kirjautunut ulos' : 'Kirjaudu sisään'"></h3>
-	            <p th:text="${param.error} ? 'Väärä käyttäjänimi tai salasana!' : ''"></p>
+	            <p th:text="${param.error} ? 'Väärä käyttäjänimi tai salasana!' : ''" />
 			<form th:action="@{/login/}" method="post">
 	            <div class="form-outline mb-4">
 	              <input type="text" name="username" class="form-control form-control-lg" placeholder="Käyttäjänimi"/>
@@ -22,9 +22,18 @@
 	            <div class="form-outline mb-4">
 	              <input type="password" name="password" class="form-control form-control-lg" placeholder="Salasana" />
 	            </div>
+	            
+	            <!-- TODO: KEEP USER LOGGED IN
+	            <div class="form-outline mb-4">
+	            	<label class="form-check-label">Pysy sisäänkirjautuneena</label>
+	            	<input type="checkbox" class="form-check-input">
+	            </div>
+	            -->
+	            
 	            <button class="btn btn-primary btn-lg btn-block" type="submit">Kirjaudu</button>
 	        </form>
 	            <hr class="my-4">
+	            <a href="/register" style="color:inherit">Ei vielä tunnuksia? - Rekisteröidy</a>
 	          </div>
 	        </div>
 	      </div>

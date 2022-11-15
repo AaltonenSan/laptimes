@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Car {
@@ -13,23 +16,22 @@ public class Car {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private String model, engine, tyres, desc;
-	private Integer my;
+	
+	@Size(min=2, max=2, message = "Valitse malli")
+	private String model;
+	
+	@Min(value = 1989, message = "Valitse vuosimalli")
+	private int my;
+	
+	@NotBlank(message = "Lisää moottorin tiedot")
+	private String engine;
+	private String tyres;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Car(String model, String engine, String tyres, String desc, Integer my, User user) {
-		super();
-		this.model = model;
-		this.engine = engine;
-		this.tyres = tyres;
-		this.desc = desc;
-		this.my = my;
-		this.user = user;
-	}
-	public Car(String model, String engine, String tyres, Integer my, User user) {
+	public Car(String model, String engine, String tyres, int my, User user) {
 		super();
 		this.model = model;
 		this.engine = engine;
@@ -69,22 +71,16 @@ public class Car {
 	public void setTyres(String tyres) {
 		this.tyres = tyres;
 	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
 	public int getMy() {
 		return my;
 	}
-	public void setMy(Integer my) {
+	public void setMy(int my) {
 		this.my = my;
 	}
 	@Override
 	public String toString() {
 		return "Car [id=" + id + ", model=" + model + ", engine=" + engine + ", tyres=" + tyres
-				+ ", desc=" + desc + ", year=" + my + "]";
+				+ ", year=" + my + "]";
 	}
 	
 }

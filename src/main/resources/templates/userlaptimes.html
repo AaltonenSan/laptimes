@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+<body>
+	<div th:replace="fragments :: menu"></div>
+	<div class="container py-5">
+	<div th:style="'display:flex; padding:20px;'">
+		<div>
+			<h1>Omat kierrosajat</h1>
+			<h1 th:text="${track}"></h1>
+		</div>
+					<div class="dropdown" style="text-align: center; padding-top: 10px; padding-left: 20px">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Valitse Rata
+	  </button>
+	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	    <a th:each="track: ${tracks}" class="dropdown-item" 
+	    	th:href="@{/laptimes/{track}(track=${track.name})}" th:text="${track.name}"></a
+	    >
+	  </div>
+	</div>
+	</div>
+	<div>
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>#</th>
+			<th>Kierrosaika</th>
+			<th>Päivämäärä</th>
+			<th>Auto</th>
+			<th>Renkaat</th>
+			<th>Keli</th>
+			<th>Video</th>
+			<td></td>
+		</tr>
+		<tr th:each="laptime,i : ${laptimes}" th:object="${laptime}">
+			<td th:text="${i.count}" />
+			<td th:text="*{lap}" />
+			<td th:text="*{date}" />
+			<td th:text="*{carModel + ' ' + carEngine}"  />
+			<td th:text="*{carTyres}" />
+			<td th:text="*{weather}" />
+			<td><a th:if="*{video}" th:href="'http://' + *{video}" th:text="*{video} ? *{video} : ''" style="color:inherit"></a></td>
+			<td><form th:action="@{/deletelaptime/{username}/{id}(username=*{user.username},id=*{id})}" method="get">
+			<input type="submit" value="Poista" class="btn btn-danger btn-sm"></form>
+		</tr>
+	</table>
+	</div>
+	</div>
+</body>
+</html>

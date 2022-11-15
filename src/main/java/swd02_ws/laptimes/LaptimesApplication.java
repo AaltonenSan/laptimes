@@ -48,9 +48,9 @@ public class LaptimesApplication {
 			crepo.save(new Car("NB", "1.8", "Toyo R888", 1999, urepo.findByUsername("admin")));
 			
 			log.info("Save some sample laptimes");
-			lrepo.save(new Laptime("1.28.02", "12.07.2018", "Kuiva", urepo.findByUsername("user"), trepo.findByName("Ahvenisto")));
-			lrepo.save(new Laptime("1.33.06", "22.06.2016", "Kuiva +24", "youtube.com/jokuvideo", urepo.findByUsername("user"), trepo.findByName("Ahvenisto")));
-			lrepo.save(new Laptime("1.33.54", "15.08.2022", "Kuiva", urepo.findByUsername("user"), trepo.findByName("Ahvenisto")));
+			lrepo.save(new Laptime("1.38.02", "12.07.2018", "Kuiva", "videoUrl" ,urepo.findByUsername("user"), trepo.findByName("Ahvenisto"), "1.8", "NA"));
+			lrepo.save(new Laptime("1.33.06", "22.06.2016", "Kuiva +24", "youtube.com/jokuvideo", urepo.findByUsername("user"), trepo.findByName("Ahvenisto"), "1.8", "NA"));
+			lrepo.save(new Laptime("1.33.54", "15.08.2022", "Kuiva", "videoUrl", urepo.findByUsername("user"), trepo.findByName("Alastaro"), "1.8", "NA"));
 			
 		};
 	};

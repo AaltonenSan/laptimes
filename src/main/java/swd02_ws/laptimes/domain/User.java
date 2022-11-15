@@ -9,7 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="usertable")
@@ -20,12 +23,21 @@ public class User {
 	@Column(name="id", nullable=false, updatable=false)
 	private Long id;
 	
+	@NotBlank(message = "Käyttänimi on pakollinen")
 	@Column(name="username", nullable=false, unique=true)
 	private String username;
-	@Column(name="password", nullable=false)
-	private String passwordHash;
+	
+	@NotBlank(message = "Sähköposti on pakollinen")
 	@Column(name="email", nullable=false)
 	private String email;
+	
+	@Size(min=5, message = "Salasanan tulee olla vähintään 5 merkkiä")
+	@Column(name="password", nullable=false)
+	private String passwordHash;
+	
+	@Column(name="joinDate")
+	private java.sql.Date joinDate;
+	
 	@Column(name="role", nullable=false)
 	private String role;
 
@@ -33,6 +45,7 @@ public class User {
 	private List<Car> cars;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+	@OrderBy("track ASC, lap ASC")
 	private List<Laptime> laptimes;
 	
 	public User(String username, String passwordHash, String email, String role) {
@@ -49,6 +62,12 @@ public class User {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public List<Laptime> getLaptimes() {
+		return laptimes;
+	}
+	public void setLaptimes(List<Laptime> laptimes) {
+		this.laptimes = laptimes;
 	}
 	public List<Car> getCars() {
 		return cars;
@@ -73,6 +92,12 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public java.sql.Date getJoinDate() {
+		return joinDate;
+	}
+	public void setJoinDate(java.sql.Date joinDate) {
+		this.joinDate = joinDate;
 	}
 	public String getRole() {
 		return role;

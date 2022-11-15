@@ -1,35 +1,12 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments :: html_head" />
 <body>
 	<div th:replace="fragments :: menu"></div>
-	
-	<div th:style="'display:flex; padding:20px; justify-content:space-between'">
-		<div>
-			<h1>Kierrosajat</h1>
-		</div>
-	</div>
-	<div>
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>Kuljettaja</th>
-			<th>Auto</th>
-			<th>Rata</th>
-			<th>Kierrosaika</th>
-			<th>Päivämäärä</th>
-			<th>Keli</th>
-		</tr>
-		<tr th:each="laptime : ${laptimes}">
-			<td th:text="${laptime.id}" />
-			<td th:text="${laptime.user.getUsername()}" />
-			<td th:text="${laptime.user.getCars().get(0).getModel() + ' ' + laptime.user.getCars().get(0).getEngine()}"  />
-			<td th:text="${laptime.track.getName()}" />
-			<td th:text="${laptime.laptime}" />
-			<td th:text="${laptime.date}" />
-			<td th:text="${laptime.weather}" />
-		</tr>
-	</table>
+	<div style="text-align:center; padding-top: 10px">
+		<h1>Tervetuloa [[${#httpServletRequest.remoteUser}]]!</h1>
+		<p>Tällä sivulla ylläpidetään Miata Club of Finlandin ratakohtaisia ranking-listoja</p>
+		<p sec:authorize="isAnonymous()">Aloittaaksesi käytön rekisteröidy ja kirjaudu sisään</p>
 	</div>
 </body>
 </html>
