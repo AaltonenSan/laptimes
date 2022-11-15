@@ -14,6 +14,7 @@
 	    Valitse Rata
 	  </button>
 	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	  	<a th:href="@{/laptimes}" class="dropdown-item">Omat ennätykset</a>
 	    <a th:each="track: ${tracks}" class="dropdown-item" 
 	    	th:href="@{/laptimes/{track}(track=${track.name})}" th:text="${track.name}"></a
 	    >
