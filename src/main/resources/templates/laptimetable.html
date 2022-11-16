@@ -37,8 +37,7 @@
 			<td th:text="*{getCarTyres()}" />
 			<td th:text="*{getWeather}" />
 			<td><a th:if="*{getVideo()}" th:href="'http://' + *{getVideo()}" th:text="*{getVideo()} ? *{getVideo()} : ''" style="color:inherit"></a></td>
-			<td><form  sec:authorize="hasAuthority('ADMIN')"
-					th:action="@{/deletelaptime/{username}/{id}(username=*{getUsername()},id=*{getId()})}" method="get">
+			<td sec:authorize="hasAuthority('ADMIN')"><form th:action="@{/deletelaptime/{username}/{id}(username=*{getUsername()},id=*{getId()})}" method="get">
 				<input type="submit" value="Poista" class="btn btn-danger btn-sm">
 			</form></td>
 		</tr>
