@@ -2,7 +2,7 @@ package swd02_ws.laptimes.domain;
 
 public interface RecordLap {
 
-	// Interface for Laptime, used in LaptimeRepository
+	// Interface used in LaptimeRepository
 	String getUsername();
 	String getId();
 	String getLap();
